@@ -1,0 +1,9 @@
+#!/usr/bin/env node
+
+const p = require('commander');
+
+p
+  .version('0.1.0')
+  .usage('<command> [options]')
+  .command('list', 'show a list of issues')
+  .parse(process.argv);

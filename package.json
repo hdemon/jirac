@@ -1,0 +1,32 @@
+{
+  "name": "jira-cli",
+  "version": "0.0.1",
+  "description": "JIRA API wrapper and CLI",
+  "keywords": [
+    "JIRA",
+    "cli"
+  ],
+  "preferGlobal": true,
+  "bin": {
+    "jira": "./bin/jira"
+  },
+  "scripts": {
+    "build": "babel src --presets es2015 --out-dir dist",
+    "watch": "babel src --presets es2015 --out-dir dist --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Masami Yonehara",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.9.1",
+    "cliff": "^0.1.10",
+    "colors": "^1.1.2",
+    "commander": "^2.9.0",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel": "^6.5.1",
+    "babel-cli": "^6.5.1",
+    "babel-preset-es2015": "^6.5.0"
+  }
+}

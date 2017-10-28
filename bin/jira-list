@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const https = require('https');
+const axios = require('axios');
+const p = require('commander');
+const _ = require('lodash');
+
+p
+  .version('0.1.0')
+  .usage('jira-list [options]')
+  .option('-j, --jql <JQL strings>', 'show list searched by specified JQL')
+  .option('-o, --origin <an origin of JIRA REST API>', 'specify an origin if you use JIRA on-premise')
+  .option('-a, --assignee <employee id>', 'filter by an assignee')
+  .option('-p, --project <project name>', 'filter by a project')
+  .option('-f, --fixVersion <fix version name>', 'fitler by a fix version')
+  .parse(process.argv);
+
+const jql = p.jql ? encodeURIComponent(p.jql) : _.compact([
+    p.assignee && `assignee!=${p.assignee}`,
+    p.project && `project=${p.project}`,
+    // will wrap by "" and encode it. Because it may include space character.
+    p.fixVersion && `fixVersion=${encodeURIComponent(`"${p.fixVersion}"`)}`,
+  ]).join('+AND+');
+
+const jiraOrigin = p.origin || process.env.JIRA_ORIGIN || `https://jira.atlassian.com`;
+
+const options = {
+  url: `${jiraOrigin}/rest/api/2/search?jql=${jql}`,
+  method: 'GET',
+  headers: {
+    'Authorization': "Basic " + new Buffer(`${process.env.JIRA_USER}:${process.env.JIRA_PASSWORD}`).toString('base64')
+  }
+};
+
+axios(options).then((result) => {
+  const list = result.data.issues.map((issue) => `${issue.key} ${issue.fields.summary}`)
+  list.forEach((issue) => console.log(issue))
+}).catch((err) => {
+  console.error(err);
+})
