@@ -1,7 +1,7 @@
 {
   "name": "jira-cli",
-  "version": "0.0.1",
-  "description": "JIRA API wrapper and CLI",
+  "version": "0.1.0",
+  "description": "The command line tool for searching, creating or editing JIRA issues",
   "keywords": [
     "JIRA",
     "cli"
