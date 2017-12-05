@@ -3,7 +3,7 @@
 ## Installation
 
 `
-npm install jira-cli -g
+npm install jirac -g
 `
 
 ## Configuration
@@ -20,13 +20,13 @@ export JIRA_ORIGIN=https://jira.hdemon.com
 ## Usage
 
 ```sh
-jira list --assignee=hdemon --project="JIRA CLI" --fixVersion="0.0.1"
+jirac list --assignee=hdemon --project="JIRA CLI" --fixVersion="0.0.1"
 ```
 
 or
 
 ```sh
-jira list -j 'assignee = hdemon AND project = "JIRA CLI" AND statusCategory != Done'
+jirac list -j 'assignee = hdemon AND project = "JIRA CLI" AND statusCategory != Done'
 ```
 
 ## License
