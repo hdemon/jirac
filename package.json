@@ -1,6 +1,6 @@
 {
   "name": "jirac",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The command line tool for searching, creating or editing JIRA issues",
   "keywords": [
     "JIRA",
@@ -8,7 +8,7 @@
   ],
   "preferGlobal": true,
   "bin": {
-    "jira": "./bin/jirac"
+    "jirac": "./bin/jirac"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
