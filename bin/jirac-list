@@ -22,17 +22,21 @@ const jql = p.jql ? encodeURIComponent(p.jql) : _.compact([
     p.fixVersion && `fixVersion=${encodeURIComponent(`"${p.fixVersion}"`)}`,
   ]).join('+AND+');
 
+// Default number of rows we can get from API is 50. So we changed it to 9999.
+// see: https://community.atlassian.com/t5/Answers-Developer-Questions/How-to-get-more-than-50-issues-with-search-API/qaq-p/463122
+const options = ['maxResults=9999'].join('&');
+
 const jiraOrigin = p.origin || process.env.JIRA_ORIGIN || `https://jira.atlassian.com`;
 
-const options = {
-  url: `${jiraOrigin}/rest/api/2/search?jql=${jql}`,
+const httpRequestOptions = {
+  url: `${jiraOrigin}/rest/api/2/search?jql=${jql}&${options}`,
   method: 'GET',
   headers: {
     'Authorization': "Basic " + new Buffer(`${process.env.JIRA_USER}:${process.env.JIRA_PASSWORD}`).toString('base64')
   }
 };
 
-axios(options).then((result) => {
+axios(httpRequestOptions).then((result) => {
   const list = result.data.issues.map((issue) => `${issue.key} ${issue.fields.assignee.displayName} ${issue.fields.priority.name} ${issue.fields.summary}`)
   list.forEach((issue) => console.log(issue))
 }).catch((err) => {
