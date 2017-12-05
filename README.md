@@ -29,6 +29,17 @@ or
 jirac list -j 'assignee = hdemon AND project = "JIRA CLI" AND statusCategory != Done'
 ```
 
+### Examples
+
+Filter and browse issues by using an interactive filtering tool like peco or something like that.
+
+```sh
+jirac list -j 'assignee = "hdemon" AND project = "jirac" AND statusCategory != "Done"' | peco | awk '{print $1}' | xargs -I {} open https://jira.atlassian.com/browse/{}
+```
+
+TODO: add short video
+
+
 ## License
 
 MIT License
