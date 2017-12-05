@@ -7,7 +7,7 @@ const _ = require('lodash');
 
 p
   .version('0.1.0')
-  .usage('jira-list [options]')
+  .usage('jirac-list [options]')
   .option('-j, --jql <JQL strings>', 'show list searched by specified JQL')
   .option('-o, --origin <an origin of JIRA REST API>', 'specify an origin if you use JIRA on-premise')
   .option('-a, --assignee <employee id>', 'filter by an assignee')
