@@ -1,6 +1,6 @@
 {
   "name": "jirac",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "The command line tool for searching, creating or editing JIRA issues",
   "keywords": [
     "JIRA",
@@ -16,8 +16,8 @@
   "author": "Masami Yonehara",
   "license": "MIT",
   "dependencies": {
-    "axios": "^0.9.1",
-    "commander": "^2.9.0",
-    "lodash": "^4.17.4"
+    "axios": "^0.18.0",
+    "commander": "^2.16.0",
+    "lodash": "^4.17.10"
   }
 }
