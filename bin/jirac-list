@@ -13,6 +13,7 @@ p
   .option('-a, --assignee <employee id>', 'filter by an assignee')
   .option('-p, --project <project name>', 'filter by a project')
   .option('-f, --fixVersion <fix version name>', 'fitler by a fix version')
+  .option('-r, --raw', 'output raw json')
   .parse(process.argv);
 
 const jql = p.jql ? encodeURIComponent(p.jql) : _.compact([
@@ -40,8 +41,12 @@ const httpRequestOptions = {
 const generateLine = (issue) => `${issue.key} ${issue.fields.assignee ? issue.fields.assignee.displayName : '(no assignee)'} ${issue.fields.priority.name} ${issue.fields.summary}`;
 
 axios(httpRequestOptions).then((result) => {
-  const list = result.data.issues.map(issue => generateLine(issue))
-  list.forEach((issue) => console.log(issue))
+  if (p.raw) {
+    console.log(JSON.stringify(result.data));
+  } else {
+    const list = result.data.issues.map(issue => generateLine(issue))
+    list.forEach((issue) => console.log(issue))
+  }
 }).catch((err) => {
   console.error(err);
 })
