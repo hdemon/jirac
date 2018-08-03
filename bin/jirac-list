@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 const https = require('https');
-const axios = require('axios');
 const p = require('commander');
 const _ = require('lodash');
+const jirac = require('../src/jirac.js');
 
 p
   .version('0.1.0')
@@ -28,19 +28,18 @@ const jql = p.jql ? encodeURIComponent(p.jql) : _.compact([
 const options = ['maxResults=9999'].join('&');
 
 const jiraOrigin = p.origin || process.env.JIRA_ORIGIN || `https://jira.atlassian.com`;
-const bufferFrom = Buffer.from ? Buffer.from : new Buffer;
-
-const httpRequestOptions = {
-  url: `${jiraOrigin}/rest/api/2/search?jql=${jql}&${options}`,
-  method: 'GET',
-  headers: {
-    'Authorization': "Basic " + bufferFrom(`${process.env.JIRA_USER}:${process.env.JIRA_PASSWORD}`).toString('base64')
-  }
-};
 
 const generateLine = (issue) => `${issue.key} ${issue.fields.assignee ? issue.fields.assignee.displayName : '(no assignee)'} ${issue.fields.priority.name} ${issue.fields.summary}`;
 
-axios(httpRequestOptions).then((result) => {
+httpRequestOptions = jirac.composeRequest({
+  username: process.env.JIRA_USER,
+  pass: process.env.JIRA_PASSWORD,
+  jiraOrigin,
+  jql,
+  options
+})
+
+jirac.getList(httpRequestOptions).then((result) => {
   if (p.raw) {
     console.log(JSON.stringify(result.data));
   } else {
