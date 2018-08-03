@@ -1,6 +1,6 @@
 {
   "name": "jirac",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "The command line tool for searching, creating or editing JIRA issues",
   "keywords": [
     "JIRA",

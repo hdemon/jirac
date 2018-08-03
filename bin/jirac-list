@@ -27,12 +27,13 @@ const jql = p.jql ? encodeURIComponent(p.jql) : _.compact([
 const options = ['maxResults=9999'].join('&');
 
 const jiraOrigin = p.origin || process.env.JIRA_ORIGIN || `https://jira.atlassian.com`;
+const bufferFrom = Buffer.from ? Buffer.from : new Buffer;
 
 const httpRequestOptions = {
   url: `${jiraOrigin}/rest/api/2/search?jql=${jql}&${options}`,
   method: 'GET',
   headers: {
-    'Authorization': "Basic " + new Buffer(`${process.env.JIRA_USER}:${process.env.JIRA_PASSWORD}`).toString('base64')
+    'Authorization': "Basic " + bufferFrom(`${process.env.JIRA_USER}:${process.env.JIRA_PASSWORD}`).toString('base64')
   }
 };
 
