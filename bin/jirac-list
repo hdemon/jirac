@@ -36,8 +36,10 @@ const httpRequestOptions = {
   }
 };
 
+const generateLine = (issue) => `${issue.key} ${issue.fields.assignee ? issue.fields.assignee.displayName : '(no assignee)'} ${issue.fields.priority.name} ${issue.fields.summary}`;
+
 axios(httpRequestOptions).then((result) => {
-  const list = result.data.issues.map((issue) => `${issue.key} ${issue.fields.assignee.displayName} ${issue.fields.priority.name} ${issue.fields.summary}`)
+  const list = result.data.issues.map(issue => generateLine(issue))
   list.forEach((issue) => console.log(issue))
 }).catch((err) => {
   console.error(err);
