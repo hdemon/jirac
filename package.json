@@ -11,13 +11,17 @@
     "jirac": "./bin/jirac"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "author": "Masami Yonehara",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
     "commander": "^2.16.0",
-    "lodash": "^4.17.10"
-  }
+    "lodash": "^4.17.10",
+    "snyk": "^1.161.1"
+  },
+  "snyk": true
 }
